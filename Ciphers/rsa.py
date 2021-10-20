@@ -2,10 +2,14 @@ from math import lcm, gcd
 from random import randint
 from Crypto.Util.number import bytes_to_long, long_to_bytes, getPrime
 from  Crypto.Random import get_random_bytes
+# This is a public key encryption scheme
+# RSA
+# This can be changed to make the bit lenght of the p and q values longer
+key_length = 128
 
 def getKey():
-	q = getPrime(128, randfunc=get_random_bytes)
-	p = getPrime(128, randfunc=get_random_bytes)
+	q = getPrime(key_length, randfunc=get_random_bytes)
+	p = getPrime(key_length, randfunc=get_random_bytes)
 	phi = lcm(p-1, q-1)
 	n = p*q
 	d = None

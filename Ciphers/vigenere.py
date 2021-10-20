@@ -1,3 +1,5 @@
+#Implementation of the vigenere cipher
+
 def encrypt(message, key):
 	ret = ""
 	offset = 0

@@ -1,4 +1,5 @@
 import codecs
+#Implimentation of the RC4 encryption scheme
 
 def KSA(key):
 	S = []

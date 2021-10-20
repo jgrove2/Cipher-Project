@@ -1,3 +1,6 @@
+# Shift cipher
+# Used with the shift and ceasar option of ciphers
+
 def encrypt(message, shift):
 	shift = int(shift)
 	result = ""

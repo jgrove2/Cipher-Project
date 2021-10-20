@@ -6,6 +6,7 @@ from Ciphers import rsa, rc4, shift, vigenere
 
 needKey = False
 
+# gives errors when the key is incorrect for a specific encryption type
 def noKeyError(message):
 	messagebox.showerror("Key Error", message)
 
@@ -23,7 +24,7 @@ def createMessageBox():
 	messageEntry.grid(row=2, column=0, sticky=W)
 	return messageEntry
 
-#key down function
+#Run encryption with the selected encryption scheme
 def encrypt():
 	entered_message = messageEntry.get()
 	output.delete(0.0, END)
@@ -66,6 +67,7 @@ def encrypt():
 	output.insert(END, encrypted_message)
 	return 1
 
+# Run decryption on with the selected cipher
 def decrypt():
 	entered_message = messageEntry.get()
 	output.delete(0.0, END)
@@ -106,6 +108,7 @@ def decrypt():
 	output.insert(END, decrypt_message)
 	return 1
 
+# The only thing that this is used for is to insert the rsa keys into their specific loacations
 def generateKey():
 	e, d, n = rsa.getKey()
 	rsaKeys[0].delete(0.0, END)
@@ -113,6 +116,7 @@ def generateKey():
 	rsaKeys[0].insert(END, [e, n])
 	rsaKeys[1].insert(END, d)
 	
+# This changes around the layout of the GUI to be for any specific cipher
 def hide(choice):
 	if(choice == "Caesar"):
 		keyEntry.grid_remove()
@@ -143,23 +147,26 @@ def hide(choice):
 			i.grid_remove()
 
 if __name__ == "__main__":
+# This sets up the window for the project
 	window = Tk()
 	window.title("Cipher Project")
 	window.configure()
 
+# The options menu allowing for seleciton of differnt ciphers to test out and use
 	schemeVar, schemes = createOptionVars()
 	schemeMenu=OptionMenu(window, schemeVar, *schemes, command=hide)
 	schemeMenu.grid(row=0, column = 1, sticky=W)
 
+	# The key entry used with some of the ciphers
 	keyText = Label(window, text="Enter your key:", font="none 12 bold")
 	keyText.grid(row=1, column=1, sticky=W)
 	keyEntry = Entry(window, width=25)
 	keyEntry.grid(row=2, column=1, sticky=W)
 
 	# Enter the message to be cyphered here
-	
 	messageEntry = createMessageBox()
 
+	# keybox and their associated windows for the rsa encryption scheme
 	rsaKeys = [Text(window, width=75, height=5, wrap=WORD), Text(window, width=75, height=5, wrap=WORD)] 
 	rsaText = [Label(window, text="\nPublic Key: ", font="none 12 bold"), Label(window, text="\nPrivate Keys: ", font="none 12 bold")]
 	rsaKeys[0].grid(row=5, column=0, columnspan=2)
@@ -167,7 +174,7 @@ if __name__ == "__main__":
 	rsaText[0].grid(row=4, column=0, columnspan=2)
 	rsaText[1].grid(row=4, column=1, columnspan=2)
 
-	
+	# Buttons for encryption decryption and the generation of keys
 	Button(window, text="Encrypt", width=6, command=encrypt).grid(row=3, column=0, sticky=W)
 	Button(window, text="Decrypt", width=6, command=decrypt).grid(row=3, column=1, sticky=W)
 	genKey = Button(window, text="Gen Keys", width=6, command=generateKey)
@@ -177,6 +184,7 @@ if __name__ == "__main__":
 	encText = Label(window, text="\nEncrypted Text: ", font="none 12 bold")
 	encText.grid(row=4, column=0, sticky=W)
 
+	# Where you receive the decrypted or encrypted text
 	output = Text(window, width=75, height=6, wrap=WORD)
 	output.grid(row=6, column=0, columnspan=2, sticky=W)
 
