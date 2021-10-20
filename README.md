@@ -5,6 +5,6 @@
  ### Shift Cipher
  This cipher just takes in a message a key and then shifts all of the letters by that key.
  ```
- E_n(x) = (x + n) mod 26
- D_n(x) = (x - n) mod 26
+ E<sub>n</sub>(x) = (x + n) mod 26
+ D<sub>n</sub>(x) = (x - n) mod 26
  ```
